@@ -6,52 +6,59 @@ import * as React from 'react';
 
 // const title = 'React';
 
-const list = [
-    {
-        title: 'React',
-        url: 'https://reactjs.org',
-        author: 'Jordan Walke',
-        num_comments: 3,
-        point: 4,
-        objectID: 0,
-    },
-    {
-        title: 'Redux',
-        url: 'https://redux.js.org',
-        author: 'Dan Abramov, Andrew Clark',
-        num_comments: 2,
-        points: 5,
-        objectID: 1,
-    },
-];
+// const list = [
+//     {
+//         title: 'React',
+//         url: 'https://reactjs.org',
+//         author: 'Jordan Walke',
+//         num_comments: 3,
+//         point: 4,
+//         objectID: 0,
+//     },
+//     {
+//         title: 'Redux',
+//         url: 'https://redux.js.org',
+//         author: 'Dan Abramov, Andrew Clark',
+//         num_comments: 2,
+//         points: 5,
+//         objectID: 1,
+//     },
+// ];
 
-function List() {
+function List(props) {
     return (
         <ul>
-            {list.map(function (item) {
-                return (
-                    <li key={item.objectID}>
-                        <span>
-                            <a href={item.url}>{item.title}</a>
-                            <span>{item.author}</span>
-                            <span>{item.num_comments}</span>
-                            <span>{item.points}</span>
-                        </span>
-                    </li>
-                );
+            {props.list.map(function (item) {
+                return <Item item={item} />;
             })}
         </ul>
     );
 }
 
-function Search() {
-    const handleChange = (event) => {
-        console.log(event);
-    };
+const Item = ({ item }) => {
+    // const item = props.item;
+    // object destructuring
+    // const { item } = props;
+    return (
+        <li key={item.objectID}>
+            <span>
+                <a href={item.url}>{item.title}</a>
+                <span>{item.author}</span>
+                <span>{item.num_comments}</span>
+                <span>{item.points}</span>
+            </span>
+        </li>
+    );
+};
 
-    const handleMouseOver = (event) => {
-        console.log(event);
-    };
+function Search() {
+    // const handleChange = (event) => {
+    //     console.log(event);
+    // };
+
+    // const handleMouseOver = (event) => {
+    //     console.log(event);
+    // };
 
     return (
         <div>
@@ -59,15 +66,53 @@ function Search() {
             <input
                 id="search"
                 type="text"
-                onChange={handleChange}
-                onMouseOver={handleMouseOver}
+                // onChange={handleChange}
+                // onMouseOver={handleMouseOver}
             />
         </div>
     );
 }
 
 //function component
-function app() {
+function App() {
+    const stories = [
+        {
+            title: 'React',
+            url: 'https://reactjs.org',
+            author: 'Jordan Walke',
+            num_comments: 3,
+            point: 4,
+            objectID: 0,
+        },
+        {
+            title: 'Redux',
+            url: 'https://redux.js.org',
+            author: 'Dan Abramov, Andrew Clark',
+            num_comments: 2,
+            points: 5,
+            objectID: 1,
+        },
+    ];
+
+    // const javascriptLibraries = [
+    //     {
+    //         title: 'JQuery',
+    //         url: 'https://jquery.org',
+    //         author: 'Jonh Resig',
+    //         num_comments: 3,
+    //         point: 4,
+    //         objectID: 0,
+    //     },
+    //     {
+    //         title: 'Angular',
+    //         url: 'https://angularjs.org',
+    //         author: 'Miško Hevery',
+    //         num_comments: 2,
+    //         points: 5,
+    //         objectID: 1,
+    //     },
+    // ];
+
     return (
         //not HTML but JSX (Javascript XML syntax)
         <div>
@@ -79,9 +124,10 @@ function app() {
         </div> */}
             <hr />
             {/* render the list */}
-            <List />
+            <List list={stories} />
+            {/* <List list={javascriptLibraries} title="Javascript Libraries" /> */}
         </div>
     );
 }
 
-export default app;
+export default App;
