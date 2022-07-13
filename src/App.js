@@ -1,6 +1,7 @@
 import * as React from 'react';
 
-function App() {
+const App = () => {
+    // Array of objects with unique IDs
     const stories = [
         {
             title: 'React',
@@ -40,7 +41,7 @@ function App() {
             <List list={searchedStories} />
         </div>
     );
-}
+};
 // Handler of any change on value target
 const Search = (props) => {
     const handleChange = (event) => {
@@ -61,7 +62,7 @@ const Search = (props) => {
     );
 };
 
-function List(props) {
+const List = (props) => {
     return (
         <ul>
             {/* Iterating through kist for rendering */}
@@ -71,7 +72,7 @@ function List(props) {
             })}
         </ul>
     );
-}
+};
 
 const Item = (props) => {
     const item = props.item;
