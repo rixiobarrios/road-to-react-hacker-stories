@@ -21,7 +21,15 @@ const App = () => {
         },
     ];
     // Hook state with getter and setter in empty string
-    const [searchTerm, setSearchTerm] = React.useState('');
+    // use state to set local storage for searches
+    const [searchTerm, setSearchTerm] = React.useState(
+        localStorage.getItem('search') || 'React'
+    );
+    // Update in local storage
+    React.useEffect(() => {
+        localStorage.setItem('search', searchTerm);
+    }, [searchTerm]);
+
     // Handler for setSearchTerm
     const handleSearch = (event) => {
         console.log(event.target.value);
@@ -29,7 +37,7 @@ const App = () => {
     };
     // Filter for search that would show only matching results and force them to lower case
     const searchedStories = stories.filter((story) =>
-        story.title.toLowerCase().includes(searchTerm.toLocaleLowerCase())
+        story.title.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
     return (
@@ -65,10 +73,10 @@ const Search = (props) => {
 const List = (props) => {
     return (
         <ul>
-            {/* Iterating through kist for rendering */}
+            {/* Iterating through List for rendering */}
             {props.list.map(function (item) {
                 // Rendering items in list
-                return <Item item={item} />;
+                return <Item key={item.objectID} item={item} />;
             })}
         </ul>
     );
@@ -77,7 +85,7 @@ const List = (props) => {
 const Item = (props) => {
     const item = props.item;
     return (
-        <li key={item.objectID}>
+        <li>
             <span>
                 <a href={item.url}>{item.title}</a>
             </span>
