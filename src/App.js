@@ -20,15 +20,23 @@ const App = () => {
             objectID: 1,
         },
     ];
-    // Hook state with getter and setter in empty string
-    // use state to set local storage for searches
-    const [searchTerm, setSearchTerm] = React.useState(
-        localStorage.getItem('search') || 'React'
+
+    //Custom hook to set and save searches to the local storage
+    const useSemiPersistentState = (key, initialValue) => {
+        const [value, setValue] = React.useState(
+            localStorage.getItem(key) || initialValue
+        );
+        React.useEffect(() => {
+            localStorage.setItem(key, value);
+        }, [value]);
+
+        return [value, setValue];
+    };
+
+    const [searchTerm, setSearchTerm] = useSemiPersistentState(
+        'search',
+        'React'
     );
-    // Update in local storage
-    React.useEffect(() => {
-        localStorage.setItem('search', searchTerm);
-    }, [searchTerm]);
 
     // Handler for setSearchTerm
     const handleSearch = (event) => {
@@ -58,15 +66,16 @@ const Search = (props) => {
     };
 
     return (
-        <div>
+        // Fragments <> and </>
+        <>
             <label htmlFor="search">Search:</label>
-            {/* Using handler for any chanmge on input */}
+            {/* Using handler for any change on input */}
             <input id="search" type="text" onChange={handleChange} />
             <p>
                 {/* Using property of searchTerms here */}
                 Searching for <strong>{props.searchTerm}</strong>
             </p>
-        </div>
+        </>
     );
 };
 
